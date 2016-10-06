@@ -270,6 +270,9 @@ module.exports = function(S) {
           Body: fileBuffer,
           ContentType: mime.lookup(filePath)
         };
+        if(filePath.indexOf('gzip')!=-1){
+          params.ContentEncoding = "gzip";
+        }
 
         // TODO: remove browser caching
         return _this.aws.request('S3', 'putObject', params, _this.evt.options.stage, _this.evt.options.region)

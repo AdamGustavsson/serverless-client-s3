@@ -270,12 +270,15 @@ module.exports = function(S) {
           Body: fileBuffer,
           ContentType: mime.lookup(filePath)
         };
-        if(filePath.indexOf('gzip')!=-1){
+        if(filePath.indexOf('gzip/')!=-1){
           params.ContentEncoding = "gzip";
         }
+        if(filePath.indexOf('.DS_Store')==-1){
+          return _this.aws.request('S3', 'putObject', params, _this.evt.options.stage, _this.evt.options.region);
+        } else{
+          return BbPromise.resolve();
+        }
 
-        // TODO: remove browser caching
-        return _this.aws.request('S3', 'putObject', params, _this.evt.options.stage, _this.evt.options.region)
       });
 
     }

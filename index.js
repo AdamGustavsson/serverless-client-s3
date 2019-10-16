@@ -187,18 +187,7 @@ module.exports = function(S) {
             Bucket: _this.bucketName,
             WebsiteConfiguration: {
               IndexDocument: { Suffix: 'index.html' },
-              ErrorDocument: { Key: 'error.html' },
-              RoutingRules: [
-                {
-                    Condition: {
-                    HttpErrorCodeReturnedEquals: '404'
-                  },
-                  Redirect: {
-                    HostName: _this.evt.options.redirectDomain?_this.evt.options.redirectDomain:_this.bucketName + ".s3-website-" + _this.evt.options.region+ ".amazonaws.com",
-                    ReplaceKeyPrefixWith: "#"
-                  }
-                }
-              ]
+              ErrorDocument: { Key: 'index.html' },
             }
           };
 
